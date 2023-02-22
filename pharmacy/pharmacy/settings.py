@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+AUTH_USER_MODEL = 'user.MyUser' #NEW addition for custom user model
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
