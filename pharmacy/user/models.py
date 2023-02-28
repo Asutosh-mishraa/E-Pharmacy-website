@@ -4,7 +4,7 @@ from django.contrib.auth.models import (
 )
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, name, mobile, email, address, password=None):
+    def create_user(self, name, mobile, email, password=None):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -16,14 +16,13 @@ class MyUserManager(BaseUserManager):
             name=name,
             mobile=mobile,
             email=self.normalize_email(email),
-            address=address
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self,  name, mobile, email, address, password=None):
+    def create_superuser(self,  name, mobile, email, password=None):
         """
         Creates and saves a superuser with the given email, date of
         birth and password.
@@ -33,7 +32,6 @@ class MyUserManager(BaseUserManager):
             mobile=mobile,
             email=email,
             password=password,
-            address=address
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -48,7 +46,7 @@ class MyUser(AbstractBaseUser):
         unique=True,
     )
     mobile = models.CharField(max_length=10, default=None)
-    address = models.TextField(default=None)
+    #address = models.TextField(default=None)
     
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -56,7 +54,7 @@ class MyUser(AbstractBaseUser):
     objects = MyUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name', 'mobile', 'address']
+    REQUIRED_FIELDS = ['name', 'mobile']
 
     def __str__(self):
         return self.email
@@ -76,3 +74,15 @@ class MyUser(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+class Address(AbstractBaseUser):
+    email = models.ForeignKey(MyUser,on_delete=models.DO_NOTHING)
+    addr_line1 = models.TextField(default=None)
+    addr_line2 = models.TextField(default=None)
+    pin = models.CharField(max_length=10,default=None)
+    city = models.CharField(max_length=50,default=None)
+    state = models.CharField(max_length=20,default=None)
+    country = models.CharField(max_length=20,default=None)
+
+    def __str__(self):
+        return self.city

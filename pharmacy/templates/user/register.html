@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href={% static "css/login.css" %}>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+{% endblock css %}
+
+{% block content %}
+    <div class="wrapper">
+      <h1>!! WELCOME !!</h1>
+      <p>
+        Register to order <br />
+        efficiently!!
+      </p>
+      <form>
+        <input type="text" placeholder="Enter name" />
+        <input type="text" placeholder="Enter Mobile No." />
+        <input type="text" placeholder="Enter Email" />
+        <input type="password" placeholder="Password" />
+        <input type="password" placeholder="Confirm Password" />
+        <closeform></closeform>
+      </form>
+      <button>Sign in</button>
+      <p class="or">----- or continue with -----</p>
+      <div class="icons">
+        <i class="fab fa-google"></i>
+        <i class="fab fa-github"></i>
+        <i class="fab fa-facebook"></i>
+      </div>
+      <div class="not-member">Already a member? <a href="{% url 'login' %}">Login</a></div>
+    </div>
+{% endblock content %}
