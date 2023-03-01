@@ -3,9 +3,8 @@ from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
 
-
 class MyUserManager(BaseUserManager):
-    def create_user(self, email, date_of_birth, password=None):
+    def create_user(self, name, mobile, email, password=None):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -14,23 +13,25 @@ class MyUserManager(BaseUserManager):
             raise ValueError('Users must have an email address')
 
         user = self.model(
+            name=name,
+            mobile=mobile,
             email=self.normalize_email(email),
-            date_of_birth=date_of_birth,
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, date_of_birth, password=None):
+    def create_superuser(self,  name, mobile, email, password=None):
         """
         Creates and saves a superuser with the given email, date of
         birth and password.
         """
         user = self.create_user(
-            email,
+            name=name,
+            mobile=mobile,
+            email=email,
             password=password,
-            date_of_birth=date_of_birth,
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -38,19 +39,22 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser):
+    name = models.CharField(max_length=255, default=None)
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
         unique=True,
     )
-    date_of_birth = models.DateField()
+    mobile = models.CharField(max_length=10, default=None)
+    #address = models.TextField(default=None)
+    
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
     objects = MyUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['date_of_birth']
+    REQUIRED_FIELDS = ['name', 'mobile']
 
     def __str__(self):
         return self.email
@@ -70,3 +74,15 @@ class MyUser(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+class Address(models.Model):
+    email = models.ForeignKey(MyUser,on_delete=models.DO_NOTHING)
+    addr_line1 = models.TextField(default=None)
+    addr_line2 = models.TextField(default=None)
+    pin = models.CharField(max_length=10,default=None)
+    city = models.CharField(max_length=50,default=None)
+    state = models.CharField(max_length=20,default=None)
+    country = models.CharField(max_length=20,default=None)
+
+    def __str__(self):
+        return self.city
