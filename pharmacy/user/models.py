@@ -75,7 +75,7 @@ class MyUser(AbstractBaseUser):
         # Simplest possible answer: All admins are staff
         return self.is_admin
 
-class Address(AbstractBaseUser):
+class Address(models.Model):
     email = models.ForeignKey(MyUser,on_delete=models.DO_NOTHING)
     addr_line1 = models.TextField(default=None)
     addr_line2 = models.TextField(default=None)
