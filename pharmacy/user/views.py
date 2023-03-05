@@ -11,7 +11,7 @@ def signin(request):
         password = request.POST.get("password1")
         print(username,password)
 
-        user = authenticate(request, email=username, password=password)
+        user = authenticate(request, username=username, password=password)
         print(user)
 
         if user is not None:
