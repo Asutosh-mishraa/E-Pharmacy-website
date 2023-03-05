@@ -67,12 +67,24 @@
                                 
                             </div>
                             <ul class="user-login">
+                                {% if user.is_authenticated %}
                                 <li>
-                                    <a href="{% url 'login' %}">Sign In</a>
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                      Welcome {{user.username}}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'signout' %}">Log Out</a>
+                                </li>
+
+                                {% else %}
+                                <li>
+                                    <a href="{% url 'signin' %}">Sign In</a>
                                 </li>
                                 <li>
                                     <a href="{% url 'register' %}">Register</a>
                                 </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -117,6 +129,7 @@
                                 </h3>
                             </div>
                             <div class="navbar-cart">
+                                {% if user.is_authenticated %}
                                 <div class="wishlist">
                                     <a href="{% static 'javascript:void(0)' %}">
                                         <i class="lni lni-heart"></i>
@@ -174,6 +187,7 @@
                                     </div>
                                     <!--/ End Shopping Item -->
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

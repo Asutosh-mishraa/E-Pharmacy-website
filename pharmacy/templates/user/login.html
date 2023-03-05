@@ -16,18 +16,26 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css
         Welcome back you've <br />
         been missed!
       </p>
-      <form>
-        <input type="text" placeholder="Enter username" />
-        <input type="password" placeholder="Password" />
+
+      {% if messages %}
+        {% for message in messages %}
+          <p class={{message.tags}} style="color: red;">{{message}}</p>
+        {% endfor %}
+      
+      {% endif %}
+
+
+      <form action="{% url 'signin' %}" method="post" onsubmit="">
+        {% csrf_token %}
+        <input type="text" name="username" id="username" placeholder="Enter username" />
+        <label for="" id="username_error" class="text-danger"></label>
+
+        <input type="password" name="password1" id="password1" placeholder="Password" />
+        <label for="" id="password1_error" class="text-danger"></label>
         <closeform></closeform>
+        <button type="submit">Log in</button>
       </form>
-      <button>Sign in</button>
-      <p class="or">----- or continue with -----</p>
-      <div class="icons">
-        <i class="fab fa-google"></i>
-        <i class="fab fa-github"></i>
-        <i class="fab fa-facebook"></i>
-      </div>
+      
       <div class="not-member">Not a member? <a href="{% url 'register' %}">Register Now</a></div>
     </div>
 
