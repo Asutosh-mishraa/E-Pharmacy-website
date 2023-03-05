@@ -105,7 +105,10 @@ video {
 }
 
 img {
+  max-height: 300px;
   max-width: 100%;
+  object-fit: contain;
+  box-sizing: border-box;
 }
 
 h1,
@@ -3320,6 +3323,7 @@ top: 2px;
   width: 100%;
   -webkit-transition: all 0.4s ease;
   transition: all 0.4s ease;
+  
 }
 
 .single-product:hover .product-image .button {
