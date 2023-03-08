@@ -27,7 +27,8 @@ def register(request):
         name= request.POST.get('name')        
         mobile= request.POST.get('mobile')
         email= request.POST.get('email')
-        password= request.POST.get('password1')
+        password= request.POST.get('password')
+        print(name, mobile, email, password)
 
         error=False
         if MyUser.objects.filter(email=email).exists():
@@ -44,8 +45,10 @@ def register(request):
                     mobile=mobile,
                     password=password
                 )
+                # user.set_password(password)
+                print(user.password)
                 user.save()
-                #print("User Created")
+                print("User Created")
                 messages.success(request,"Account created Successfully. Login to continue")
                 return redirect('signin')
             except Exception as e:

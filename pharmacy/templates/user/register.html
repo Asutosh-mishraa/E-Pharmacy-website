@@ -21,22 +21,22 @@
           <p class={{message.tags}} style="color: red;">{{message}}</p>
         {% endfor %}
       {% endif %}
-      <form action="{% url 'register' %}" method="post" onsubmit="">
+      <form action="{% url 'register' %}" method="post" onsubmit="return validate_register()">
         {% csrf_token %}
-        <input type="text" name="name" id="name" placeholder="Enter name" />
-        <label for="" id="name_error"></label>
+        <input type="text" name="name" id="name" placeholder="Enter name" onchange="validate_register()">
+        <label for="" class="text-danger" id="name_error"></label>
 
-        <input type="text" name="mobile" id="mobile" placeholder="Enter Mobile No." />
-        <label for="" id="mobile_error"></label>
+        <input type="text" name="mobile" id="mobile" placeholder="Enter Mobile No." onchange="validate_register()">
+        <label for="" class="text-danger" id="mobile_error"></label>
 
-        <input type="text" name="email" id="email" placeholder="Enter Email" />
-        <label for="" id="email_error"></label>
+        <input type="text" name="email" id="email" placeholder="Enter Email" onchange="validate_register()"/>
+        <label for="" class="text-danger" id="email_error"></label>
 
-        <input type="password" name="password" id="password1" placeholder="Password" />
-        <label for="" id="password1_error"></label>
+        <input type="password" name="password" id="password" placeholder="Password" onchange="validate_register()"/>
+        <label for="" class="text-danger" id="password1_error"></label>
 
-        <input type="password" name="password2" id="password2" placeholder="Confirm Password" />
-        <label for="" id="password2_error"></label>
+        <input type="password" name="password2" id="password2" placeholder="Confirm Password" onchange="validate_register()"/>
+        <label for="" class="text-danger" id="password2_error"></label>
 
         <closeform></closeform>
         <button type="submit">Register</button>
@@ -45,3 +45,7 @@
       <div class="not-member">Already a member? <a href="{% url 'signin' %}">Login</a></div>
     </div>
 {% endblock content %}
+
+{% block js %}
+    <script src={% static 'js/user_form.js' %}></script>
+{% endblock js %}

@@ -25,12 +25,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css
       {% endif %}
 
 
-      <form action="{% url 'signin' %}" method="post" onsubmit="">
+      <form action="{% url 'signin' %}" method="post" onsubmit="validatel_login()">
         {% csrf_token %}
-        <input type="text" name="email" id="email" placeholder="Enter email" />
+        <input type="text" name="email" id="email" placeholder="Enter email" onchange="validate_register()"/>
         <label for="" id="email_error" class="text-danger"></label>
 
-        <input type="password" name="password1" id="password1" placeholder="Password" />
+        <input type="password" name="password1" id="password1" placeholder="Password" onchange="validate_register()"/>
         <label for="" id="password1_error" class="text-danger"></label>
         <closeform></closeform>
         <button type="submit">Log in</button>
@@ -40,3 +40,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css
     </div>
 
 {% endblock content %}
+
+{% block js %}
+    <script src={% static 'js/user_form.js' %}></script>
+{% endblock js %}
+
+
