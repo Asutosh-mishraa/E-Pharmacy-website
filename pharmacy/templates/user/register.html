@@ -13,24 +13,39 @@
     <div class="wrapper">
       <h1>!! WELCOME !!</h1>
       <p>
-        Register to order <br />
+        Register to order 
         efficiently!!
       </p>
-      <form>
-        <input type="text" placeholder="Enter name" />
-        <input type="text" placeholder="Enter Mobile No." />
-        <input type="text" placeholder="Enter Email" />
-        <input type="password" placeholder="Password" />
-        <input type="password" placeholder="Confirm Password" />
+      {% if messages %}
+        {% for message in messages %}
+          <p class={{message.tags}} style="color: red;">{{message}}</p>
+        {% endfor %}
+      {% endif %}
+      <form action="{% url 'register' %}" method="post" onsubmit="return validate_register()">
+        {% csrf_token %}
+        <input type="text" name="name" id="name" placeholder="Enter name" onchange="validate_register()">
+        <label for="" class="text-danger" id="name_error"></label>
+
+        <input type="text" name="mobile" id="mobile" placeholder="Enter Mobile No." onchange="validate_register()">
+        <label for="" class="text-danger" id="mobile_error"></label>
+
+        <input type="text" name="email" id="email" placeholder="Enter Email" onchange="validate_register()"/>
+        <label for="" class="text-danger" id="email_error"></label>
+
+        <input type="password" name="password" id="password" placeholder="Password" onchange="validate_register()"/>
+        <label for="" class="text-danger" id="password1_error"></label>
+
+        <input type="password" name="password2" id="password2" placeholder="Confirm Password" onchange="validate_register()"/>
+        <label for="" class="text-danger" id="password2_error"></label>
+
         <closeform></closeform>
+        <button type="submit">Register</button>
       </form>
-      <button>Sign in</button>
-      <p class="or">----- or continue with -----</p>
-      <div class="icons">
-        <i class="fab fa-google"></i>
-        <i class="fab fa-github"></i>
-        <i class="fab fa-facebook"></i>
-      </div>
-      <div class="not-member">Already a member? <a href="{% url 'login' %}">Login</a></div>
+      
+      <div class="not-member">Already a member? <a href="{% url 'signin' %}">Login</a></div>
     </div>
 {% endblock content %}
+
+{% block js %}
+    <script src={% static 'js/user_form.js' %}></script>
+{% endblock js %}
