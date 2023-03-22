@@ -1,7 +1,7 @@
 function validatel_login(){
 
     const email=document.getElementById("email").value;
-    const password1=document.getElementById("password1").value;
+    const password1=document.getElementById("password").value;
     let error=false;
     //email number
     if(email ===""){
@@ -15,15 +15,15 @@ function validatel_login(){
     //Password
     
     if(password1 ===""){
-        document.getElementById("password1_error").innerHTML="Empty password field";
+        document.getElementById("password_error").innerHTML="Empty password field";
         error=true;
     }
     else if(password1.length < 5 || password1.length >8){
-        document.getElementById("password1_error").innerHTML="Incorrect password lenght. <br>Enter between 5-8 characters.";
+        document.getElementById("password_error").innerHTML="Incorrect password lenght. <br>Enter between 5-8 characters.";
         error=true;
     }
     else if(!password1.match(/[0-9]/)){
-        document.getElementById("password1_error").innerHTML="Must contain a digit.";
+        document.getElementById("password_error").innerHTML="Must contain a digit.";
         error=true;
     }
     else{
@@ -63,7 +63,7 @@ function validate_register(){
         document.getElementById("mobile_error").innerHTML="Enter mobile number.";
         error=true;
     }
-    else if(sic.length != 10 || isNaN(sic)){
+    else if(mobile.length != 10 || isNaN(mobile)){
         document.getElementById("mobile_error").innerHTML="Please Enter a valid 10 digit mobile number.";
         error=true;
     }
@@ -89,19 +89,19 @@ function validate_register(){
     //Password
     
     if(password1 ===""){
-        document.getElementById("password1_error").innerHTML="Empty password field";
+        document.getElementById("password_error").innerHTML="Empty password field";
         error=true;
     }
     else if(password1.length < 5 || password1.length >8){
-        document.getElementById("password1_error").innerHTML="Incorrect password lenght.<br>Enter 5-8 characters";
+        document.getElementById("password_error").innerHTML="Incorrect password lenght.<br>Enter 5-8 characters";
         error=true;
     }
     else if(!password1.match(/[0-9]/)){
-        document.getElementById("password1_error").innerHTML="Must contain a digit.";
+        document.getElementById("password_error").innerHTML="Must contain a digit.";
         error=true;
     }
     else{
-        document.getElementById("password1_error").innerHTML="";
+        document.getElementById("password_error").innerHTML="";
     }
 
     // confirm password
@@ -123,7 +123,7 @@ function validate_register(){
         return false;
     }
     else{
-        alert("Successful")
+        //alert("Successful")
         return true;
     }
 

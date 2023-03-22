@@ -14,6 +14,7 @@ class product(models.Model):
     description=models.TextField()
     secondary_description=models.TextField(blank=True)
     is_available=models.BooleanField(default=True)
+    prescription_required=models.BooleanField(default=False)
     product_image=models.ImageField(upload_to="prod_images/")
 
     def __str__(self):
