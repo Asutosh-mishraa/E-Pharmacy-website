@@ -16,19 +16,33 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css
         Welcome back you've <br />
         been missed!
       </p>
-      <form>
-        <input type="text" placeholder="Enter username" />
-        <input type="password" placeholder="Password" />
+
+      {% if messages %}
+        {% for message in messages %}
+          <p class={{message.tags}} style="color: red;">{{message}}</p>
+        {% endfor %}
+      
+      {% endif %}
+
+
+      <form action="{% url 'signin' %}" method="post" onsubmit="validatel_login()">
+        {% csrf_token %}
+        <input type="text" name="email" id="email" placeholder="Enter email" onchange="validatel_login()"/>
+        <label for="" id="email_error" class="text-danger"></label>
+
+        <input type="password" name="password1" id="password" placeholder="Password" onchange="validatel_login()"/>
+        <label for="" id="password_error" class="text-danger"></label>
         <closeform></closeform>
+        <button type="submit">Log in</button>
       </form>
-      <button>Sign in</button>
-      <p class="or">----- or continue with -----</p>
-      <div class="icons">
-        <i class="fab fa-google"></i>
-        <i class="fab fa-github"></i>
-        <i class="fab fa-facebook"></i>
-      </div>
+      
       <div class="not-member">Not a member? <a href="{% url 'register' %}">Register Now</a></div>
     </div>
 
 {% endblock content %}
+
+{% block js %}
+    <script src={% static 'js/user_form.js' %}></script>
+{% endblock js %}
+
+
