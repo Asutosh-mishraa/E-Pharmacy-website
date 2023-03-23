@@ -79,10 +79,13 @@
 
                                 {% else %}
                                 <li>
-                                    <a href="{% url 'signin' %}">Log In</a>
+                                    <a href="{% url 'adminpage' %}">Admin Log In</a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'register' %}">Register</a>
+                                    <a href="{% url 'signin' %}">User Log In</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'register' %}"> User Register</a>
                                 </li>
                                 {% endif %}
                             </ul>
