@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<h1>This is the all product page</h1>
 
-
-{% for prod in product %}
+<div class="container">
+    <div class="row">
+{% for prod in products %}
     <div class="col-lg-3 col-md-6 col-12">
         <div class="single-product">
             <div class="product-image">
-                <img style="max-height: 288px;" style="max-height: 300px;" src="{{prod.photo.url}}" alt="#">
+                <img style="height: 300px;" src="{{prod.product_image.url}}" alt="#">
                 <div class="button">
                     <a href="" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                 </div>
@@ -16,7 +16,7 @@
             <div class="product-info">
                 <span class="category">{{prod.category}}</span>
                 <h4 class="title">
-                    <a href="{% url 'product' %}">{{prod.name}}</a>
+                    <a href="{% url 'prod_detail' prod.id %}">{{prod.name}}</a>
                 </h4>
                 <div class="price">
                     <span>₹ {{prod.price}}</span>
@@ -26,5 +26,7 @@
         <!-- End Single Product -->
     </div>
 {% endfor %}
+</div>
+</div>
 
 {% endblock content %}
