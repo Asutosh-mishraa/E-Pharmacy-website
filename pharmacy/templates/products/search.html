@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% if search_result %}
+
+            {% for items in search_result %}
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="single-product">
+        
+                    <div class="product-image">
+                        <img style="height: 300px;" src="{{items.product_image.url}}" alt="#">
+                        <div class="button">
+                            <a href="" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="category">{{items.category}}</span>
+                        <h4 class="title">
+                            <a href="">{{items.name}}</a>
+                        </h4>
+                        <div class="price">
+                            <span>₹ {{items.price}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Product -->
+            </div>
+            
+            {% endfor %}
+        {% else %}
+            <div class="">
+                <div class="single-product">
+        
+                    <div class="product-image">
+                        <center><h1>No Products Found!!!!</h1>
+                        <h2>Will Be adding soon....</h2></center>
+                    </div>
+
+                </div>
+                <!-- End Single Product -->
+            </div>
+        
+        {% endif %}
+</div>
+<br>
+</div>
+{% endblock content %}
