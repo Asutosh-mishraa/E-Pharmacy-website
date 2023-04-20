@@ -17,7 +17,7 @@ def product_detail(request):
 def search(request):
     product_name=request.GET.get("search")
     search_result=product.objects.filter(name__icontains=product_name)
-
+    #print(search_result)
     context={
         "search_result": search_result
     }

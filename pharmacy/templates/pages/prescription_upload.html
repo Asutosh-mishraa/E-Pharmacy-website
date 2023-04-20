@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<center>
+    <h1>Image to Text</h1>
+    <br><br>
+    <form action="{% url 'prescription_products' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>Please Select a File</label>
+        <input type="file" name="myfile">
+        <input type="submit" value="Upload">
+    </form>
+</center>
+<br><br>
+
+{% endblock content %}
+

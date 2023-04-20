@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<center><br><br>
+    <h1>The products we have, based on your uploaded prescription</h1>
+    {% comment %} <ul>
+        {% for line in lines %}
+            <li>{{line}}</li>
+        {% endfor %}
+    </ul> {% endcomment %}
+</center>
+<br><br>
+
+
+<div class="container">
+    <div class="row">
+        {% if result %}
+
+            {% for prods in result %}
+                {% for items in prods %}
+
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="single-product">
+                
+                            <div class="product-image">
+                                <img style="height: 300px;" src="{{items.product_image.url}}" alt="#">
+                                <div class="button">
+                                    <a href="" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <span class="category">{{items.category}}</span>
+                                <h4 class="title">
+                                    <a href="">{{items.name}}</a>
+                                </h4>
+                                <div class="price">
+                                    <span>₹ {{items.price}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Single Product -->
+                    </div>
+                {% endfor %}
+            
+            {% endfor %}
+        {% else %}
+            <div class="">
+                <div class="single-product">
+        
+                    <div class="product-image">
+                        <center><h1>No Products Found!!!!</h1>
+                        <h2>Will Be adding them soon....</h2></center>
+                    </div>
+
+                </div>
+                <!-- End Single Product -->
+            </div>
+        
+        {% endif %}
+        
+
+</div><br>
+{% if not_found %}
+            <h1>These items are not availaible with us : </h1><br><br>
+            {% for i in not_found %}
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-product">
+                        <div class="product-info">
+                            <h4 class="title">
+                                <a href="">{{i}}</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+<br>
+</div>
+
+{% endblock content %}
+
