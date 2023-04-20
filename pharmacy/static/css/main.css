@@ -3896,7 +3896,8 @@ top: 2px;
 .item-details .product-info .cart-button .btn {
   width: 100%;
   height: 46px;
-  padding: 0;
+  padding: 0px;
+  
 }
 
 .item-details .product-info .wish-button {
