@@ -19,7 +19,7 @@
                     <div class="product-info">
                         <span class="category">{{items.category}}</span>
                         <h4 class="title">
-                            <a href="">{{items.name}}</a>
+                            <a href="{% url 'prod_detail' items.id %}">{{items.name}}</a>
                         </h4>
                         <div class="price">
                             <span>₹ {{items.price}}</span>

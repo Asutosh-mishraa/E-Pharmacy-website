@@ -226,9 +226,9 @@
                                         <li><a href="{% static 'product-grids.html' %}">Cables & Adapters</a></li>
                                     </ul> {% endcomment %}
                                 
-                                {% if categories %}
-                                    {% for cat in categories %}
-                                        <li><a href="{% static 'product-grids.html' %}">{{cat.category}}</a></li>
+                                {% if request.session.categories %}
+                                    {% for cat in request.session.categories %}
+                                        <li><a href="{% url 'categorywise' cat.0 %}">{{cat.1}}</a></li>
                                     {% endfor %}
                                 {% endif %}
                             </ul>
@@ -298,10 +298,10 @@
                                     <li class="nav-item">
                                         <a href="{% url 'cart' %}" aria-label="Toggle navigation">Cart</a>
                                     </li>
-                                    <li class="nav-item">
+                                    {% comment %} <li class="nav-item">
                                         <a href="{% url 'prod_detail' %}" aria-label="Toggle navigation">Product Details</a>
                                     </li>
-                                    
+                                     {% endcomment %}
 
                                 </ul>
                             </div> <!-- navbar collapse -->

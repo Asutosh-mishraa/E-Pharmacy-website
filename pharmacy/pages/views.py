@@ -7,11 +7,14 @@ from products.models import product
 
 # Create your views here.
 def index(request):
-    categories=category.objects.all()
-    context={
-        'categories' : categories,
-    }
-    return render(request,'pages/index.html',context)
+    categories=category.objects.values_list('id', 'category')
+    categories = list(categories)
+    print(categories)
+    request.session['categories'] = categories
+    # context={
+    #     'categories' : categories,
+    # }
+    return render(request,'pages/index.html')
 
 def allprod(request):
     return render(request,'pages/allprod.html')

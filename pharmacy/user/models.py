@@ -76,13 +76,15 @@ class MyUser(AbstractBaseUser):
         return self.is_admin
 
 class Address(models.Model):
-    email = models.ForeignKey(MyUser,on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(MyUser,on_delete=models.DO_NOTHING)
     addr_line1 = models.TextField(default=None)
     addr_line2 = models.TextField(default=None)
     pin = models.CharField(max_length=10,default=None)
     city = models.CharField(max_length=50,default=None)
     state = models.CharField(max_length=20,default=None)
     country = models.CharField(max_length=20,default=None)
+    mobile = models.TextField(default=None)
+    
 
     def __str__(self):
         return self.city

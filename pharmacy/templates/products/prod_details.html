@@ -10,23 +10,18 @@
                     <div class="product-images">
                         <main id="gallery">
                             <div class="main-img">
-                                <img src="{% static 'images/products/clear_gel_20mg.png'%}" id="current" alt="#">
-                            </div>
-                            <div class="images">
-                                <img src="{% static 'images/logo/medikart.png' %}" class="img" alt="#">
-                                <img src="{% static 'images/logo/medikart.png' %}" class="img" alt="#">
-                                <img src="{% static 'images/logo/medikart.png' %}" class="img" alt="#">
+                                <img src="{{product.product_image.url}}" id="current" alt="#">
                             </div>
                         </main>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12 col-12">
                     <div class="product-info">
-                        <h2 class="title">Cleargel Gel 20gm</h2>
+                        <h2 class="title">{{product.name}}</h2>
                         <p class="category"><i class="lni lni-tag"></i> Category:<a href="javascript:void(0)">
-                             Skincare (Acne)</a></p>
-                        <h3 class="price">Rs.850<span>Rs.945</span></h3>
-                        <p class="info-text">CLEARGEL GEL contains Clindamycin, which belongs to the group of medicines called Antibiotics.</p>
+                             {{product.category}}</a></p>
+                        <h3 class="price">Rs.{{product.price}}<span>Rs.945</span></h3>
+                        <p class="info-text">{{product.description}}</p>
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-12">
                                 <div class="form-group quantity">
@@ -76,7 +71,7 @@
                 </div>
             </div>
         </div>
-        <div class="product-details-info">
+        {% comment %} <div class="product-details-info">
             <div class="single-block">
                 <div class="row">
                     <div class="col-lg-6 col-12">
@@ -97,13 +92,13 @@
                             <h4>HOW IT WORKS</h4>
                             <p>CLEARGEL GEL acts against the bacteria by binding to the 50S subunit of the bacterial ribosome (site of protein synthesis),
                                  which in turn prevents protein synthesis and kills the infection-causing bacteria.</p>
-                            {% comment %} <ul class="normal-list">
+                            <ul class="normal-list">
                                 <li><span>Weight:</span> 35.5oz (1006g)</li>
                                 <li><span>Maximum Speed:</span> 35 mph (15 m/s)</li>
                                 <li><span>Maximum Distance:</span> Up to 9,840ft (3,000m)</li>
                                 <li><span>Operating Frequency:</span> 2.4GHz</li>
                                 <li><span>Manufacturer:</span> GoPro, USA</li>
-                            </ul> {% endcomment %}
+                            </ul>
                             <h4>Side Effects:</h4>
                             <ul class="features">
                                 <li>Abdominal pain</li>
@@ -115,7 +110,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> {% endcomment %}
     </div>
 </section>
 
