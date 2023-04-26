@@ -17,6 +17,7 @@ body {
   color: #888;
   overflow-x: hidden;
   font-size: 14px;
+  background: #dfe9f5 !important;
 }
 
 p {
@@ -2870,7 +2871,8 @@ top: 2px;
 .hero-area {
   position: relative;
   background-color: #fff;
-  margin-top: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -3573,7 +3575,7 @@ top: 2px;
     Item Details CSS
 ========================================*/
 .item-details {
-  background-color: #f9f9f9;
+  background-color: #dfe9f5;
 }
 
 .item-details .top-area {
@@ -4432,7 +4434,7 @@ top: 2px;
 }
 
 .footer .footer-top .footer-logo a img {
-  width: 200px;
+  width: 150px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
