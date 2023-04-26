@@ -125,7 +125,8 @@
             </div>
         </div>
         {% else %}
-        <h2 class="text-center">Cart is Empty</h2>
+        <img src="{% static 'images/hero/empty_cart.png' %}" alt="Logo">
+        {% comment %} <h2 class="text-center">Cart is Empty</h2> {% endcomment %}
         {% endif %}
     </div>
 </div>
