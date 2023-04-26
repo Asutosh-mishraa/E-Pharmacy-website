@@ -33,7 +33,52 @@ def search(request):
     }
     return render(request,'products/search.html',context)
 
+def add_to_cart(request):
+    if request.method =="POST":
+        product_id=request.POST.get("product_id")
+        quantity=request.POST.get("quantity")
+        items={}
+        if request.session.get("items"):
+            items=request.session.get("items")
+        items[product_id]=quantity
+        request.session["items"]=items
+        print(request.session["items"])
+    return redirect('cart')
+
 def cart(request):
-    return render(request,'products/cart.html')
+    prod=request.session.get("items")
+    items=[]
+    total_price=0
+    if prod:
+        for id,quantity in prod.items():
+            p=product.objects.get(id=id)
+            price=int(quantity) * float(p.price)
+            #perprice=int(prod.price)
+            total_price += price
+            price=round(price,2)
+            total_price = round(total_price,2)
+            items.append({
+                "id" : id,
+                "name" : p.name,
+                "quantity" : quantity,
+                "price" : price,
+                "photo" : p.product_image,
+                "perprice" : p.price,
+            })
+    request.session["totalcartitems"]=len(items)
+
+    context={
+        "products":items,
+        "total_price": total_price,
+    }
+    return render(request,'products/cart.html',context)
+
+def delete_cart_item(request, id):
+    products=request.session.get("items")
+    id=str(id)
+    del products[id]
+    request.session["items"] = products
+    return redirect("cart")
+
 def checkout(request):
     return render(request,'products/checkout.html')
