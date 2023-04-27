@@ -22,7 +22,7 @@ class product(models.Model):
         return self.name
 class Order(models.Model):
     user = models.ForeignKey(MyUser,on_delete=models.DO_NOTHING)
-    address = models.ForeignKey(Address,on_delete=models.DO_NOTHING)
+    address = models.ForeignKey(Address,on_delete=models.DO_NOTHING,default=None)
 
     order_details=models.CharField(max_length=500)
     total_price=models.FloatField()
