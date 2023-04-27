@@ -82,3 +82,5 @@ def delete_cart_item(request, id):
 
 def checkout(request):
     return render(request,'products/checkout.html')
+def invoice(request):
+    return render(request,'products/invoice.html')

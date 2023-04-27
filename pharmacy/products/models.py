@@ -1,5 +1,5 @@
 from django.db import models
-from user.models import MyUser
+from user.models import MyUser, Address
 
 
 # Create your models here.
@@ -22,6 +22,8 @@ class product(models.Model):
         return self.name
 class Order(models.Model):
     user = models.ForeignKey(MyUser,on_delete=models.DO_NOTHING)
+    address = models.ForeignKey(Address,on_delete=models.DO_NOTHING)
+
     order_details=models.CharField(max_length=500)
     total_price=models.FloatField()
     payment_mode = models.TextField()

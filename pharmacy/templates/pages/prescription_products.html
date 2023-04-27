@@ -2,22 +2,16 @@
 {% load static %}
 
 {% block content %}
-<center><br><br>
-    <h1>The products we have, based on your uploaded prescription</h1>
-    {% comment %} <ul>
-        {% for line in lines %}
-            <li>{{line}}</li>
-        {% endfor %}
-    </ul> {% endcomment %}
-</center>
 <br><br>
 
-
 <div class="container">
+    {% if result %}
+    <div style="background-color:white; width:100%; height:50px; color:navy; font-size:1.5rem; font-weight:bold; text-align:center;">
+        <span>The products we have, based on your uploaded prescription.....</span>
+    </div>
     <div class="row">
-        {% if result %}
-
-            {% for prods in result %}
+        
+        {% for prods in result %}
                 {% for items in prods %}
 
                     <div class="col-lg-3 col-md-6 col-12">
@@ -59,7 +53,10 @@
 
 </div><br>
 {% if not_found %}
-            <h1>These items are not availaible with us : </h1><br><br>
+            <div style="background-color:white; width:100%; height:50px; color:red; font-size:1.5rem; font-weight:bold; text-align:center;">
+                <span>These items are not availaible with us : <span>
+            </div>
+            <div class="row">
             {% for i in not_found %}
                 <div class="col-lg-3 col-md-6 col-12">
                     <div class="single-product">
@@ -71,6 +68,7 @@
                     </div>
                 </div>
             {% endfor %}
+        </div>
         {% endif %}
 <br>
 </div>
