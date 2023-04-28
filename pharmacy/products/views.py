@@ -66,6 +66,7 @@ def cart(request):
                 "perprice" : p.price,
             })
     request.session["totalcartitems"]=len(items)
+    request.session["totalprice"] = total_price
 
     context={
         "products":items,
@@ -84,3 +85,24 @@ def checkout(request):
     return render(request,'products/checkout.html')
 def invoice(request):
     return render(request,'products/invoice.html')
+def orders(request):
+    return render(request,'products/orders.html')
+def placed(request):
+    return render(request,'products/placed.html')
+
+def place_order(request):
+
+    if request.method == "POST":
+        name = request.POST.get('name')        
+        email = request.POST.get('email')
+        phone_number = request.POST.get('number')
+        city = request.POST.get('city')
+        addr_line1 = request.POST.get('address1')
+        addr_line2 = request.POST.get('address2')
+        pin = request.POST.get('pin')
+        state = request.POST.get('state')
+        payment_mode = request.POST.get('selector')
+
+        print(name, phone_number, email, city,addr_line1,addr_line2,pin,state, payment_mode)
+
+    return render(request,'products/placed.html')

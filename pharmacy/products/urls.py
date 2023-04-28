@@ -11,6 +11,12 @@ urlpatterns = [
     path('delete_cart_item/<int:id>/',views.delete_cart_item,name="delete_cart_item"),
     path('category/<int:id>/',views.categorywise,name="categorywise"),
     path('invoice/',views.invoice,name="invoice"),
+    path('myorders/',views.orders,name="orders"),
+    path('order_placed/',views.placed,name="placed"),
+
+    path('place_order/',views.place_order,name="place_order"),   
+
+
 
 
 ]
