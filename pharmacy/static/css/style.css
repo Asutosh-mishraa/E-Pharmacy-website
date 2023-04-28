@@ -1,5 +1,19 @@
 /*======================================
 ========================================*/
+
+.labelForm{
+	font-size: 1.2em;
+  }
+
+  input[type=radio]:checked ~ .check::before{
+	background: black;
+  }
+
+  input[type=radio]:checked ~ label{
+	color: black;
+  }
+
+  /*  */
 .color-plate {
 	position: fixed;
 	display: block;
