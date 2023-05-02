@@ -76,10 +76,15 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
-
+class AdressAdmin(admin.ModelAdmin):
+    list_display=('user','addr_line1','addr_line2','pin','city','state','country','phone_number',)
+    ordering=('user',)
+    search_fields=('pin','state')
+    list_filter=('city','state',)
+    
 # Now register the new UserAdmin...
 admin.site.register(MyUser, UserAdmin)
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
 admin.site.unregister(Group)
-admin.site.register(Address)
+admin.site.register(Address,AdressAdmin)

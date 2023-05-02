@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
-from .models import product
+from django.core.mail import send_mail
+from .models import product,Order
+from user.models import Address
 
 def all_products(request):
     products = product.objects.all()
@@ -101,8 +102,51 @@ def place_order(request):
         addr_line2 = request.POST.get('address2')
         pin = request.POST.get('pin')
         state = request.POST.get('state')
-        payment_mode = request.POST.get('selector')
+        payment_mode_cod = request.POST.get('selector1')
+        payment_mode_rpay = request.POST.get('selector2')
 
-        print(name, phone_number, email, city,addr_line1,addr_line2,pin,state, payment_mode)
+        prod = request.session.get("items")
+        total_price = request.session.get("totalprice")
+        #print(name, phone_number, email, city,addr_line1,addr_line2,pin,state, payment_mode_cod,payment_mode_rpay)
+        if payment_mode_cod:
+            address = Address(
+                user = request.user,
+                addr_line1 = addr_line1,
+                addr_line2 = addr_line2,
+                pin = pin,
+                city = city,
+                state = state,
+                phone_number = phone_number,
+            )
+            address.save()
+            if prod:
+                order_details = ""
+                address = "" +f"{name},\n{addr_line1},\n{addr_line2},\n{city},{pin}\n{state}\n{phone_number}"
+                for id,quantity in prod.items():
+                    p = product.objects.get(id=id)
+                    price = p.price * int(quantity)
+                    price = round(price,2)
+                    order_details += f"{p.name}  x  {quantity} ----- {quantity} x {p.price} ----- {price} \n"
+                order=Order(
+                    user=request.user,
+                    address = address,
+                    order_details=order_details,
+                    total_price=total_price,
+                    payment_mode = payment_mode_cod,
+                )
+                order.save()
+                msg = ""
+                msg = msg + f"Hi {name},\nYour order has been successfully placed.\nOrder details :\n{order_details}Total Order amount = {total_price}\n\nShipping Details :\n{address}\nThank You for Ordering from us, Your order will be delivered within 7 working days.\nHappy Shopping."
+                #print(msg)
+                send_mail(
+                    "Order Confirmation from Medikart",
+                    msg,
+                    "asumishra25@gmail.com",
+                    [request.user.email,],
+                    fail_silently=False
+                )
+                del request.session["items"]
 
-    return render(request,'products/placed.html')
+            return render(request,'products/placed.html')
+        else:
+            return render(request,'products/invoice.html')

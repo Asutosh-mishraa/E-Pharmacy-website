@@ -83,7 +83,9 @@ class Address(models.Model):
     city = models.CharField(max_length=50,default=None)
     state = models.CharField(max_length=20,default=None)
     country = models.CharField(max_length=20,default="India")
-    phone_number = models.TextField(default=None) 
+    phone_number = models.CharField(max_length=20,default=None) 
+    #alt_email = models.TextField(default=None)
+
     
 
     def __str__(self):

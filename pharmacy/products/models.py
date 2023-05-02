@@ -22,14 +22,14 @@ class product(models.Model):
         return self.name
 class Order(models.Model):
     user = models.ForeignKey(MyUser,on_delete=models.DO_NOTHING)
-    address = models.ForeignKey(Address,on_delete=models.DO_NOTHING,default=None)
-    order_details=models.CharField(max_length=500)
+    address = models.TextField()
+    order_details=models.TextField()
     total_price=models.FloatField()
-    payment_mode = models.TextField()
+    payment_mode = models.CharField(max_length=50)
     is_paid = models.BooleanField(default=False)
     is_delivered=models.BooleanField(default=False)
     created_at=models.DateTimeField(auto_now_add=True)
     deleted_at=models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.name
