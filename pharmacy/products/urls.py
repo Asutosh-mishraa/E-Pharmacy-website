@@ -14,7 +14,9 @@ urlpatterns = [
     path('myorders/',views.orders,name="orders"),
     path('order_placed/',views.placed,name="placed"),
 
-    path('place_order/',views.place_order,name="place_order"),   
+    path('place_order/',views.place_order,name="place_order"),
+    path('payment_success/',views.payment_success,name="payment_success"),   
+
 
 
 

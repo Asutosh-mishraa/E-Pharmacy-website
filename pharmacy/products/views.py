@@ -89,7 +89,12 @@ def invoice(request):
 def orders(request):
     return render(request,'products/orders.html')
 def placed(request):
+    #check in session for payments and populate order table payment table empty foloowing session cart,addr,payment
     return render(request,'products/placed.html')
+
+
+import razorpay
+from django.conf import settings
 
 def place_order(request):
 
@@ -117,11 +122,14 @@ def place_order(request):
                 city = city,
                 state = state,
                 phone_number = phone_number,
+                alt_email=email
             )
             address.save()
             if prod:
+                addr_obj=Address.objects.latest('id')
                 order_details = ""
-                address = "" +f"{name},\n{addr_line1},\n{addr_line2},\n{city},{pin}\n{state}\n{phone_number}"
+                # address = "" +f"{name},\n{addr_line1},\n{addr_line2},\n{city},{pin}\n{state}\n{phone_number}"
+                address = addr_obj
                 for id,quantity in prod.items():
                     p = product.objects.get(id=id)
                     price = p.price * int(quantity)
@@ -138,15 +146,78 @@ def place_order(request):
                 msg = ""
                 msg = msg + f"Hi {name},\nYour order has been successfully placed.\nOrder details :\n{order_details}Total Order amount = {total_price}\n\nShipping Details :\n{address}\nThank You for Ordering from us, Your order will be delivered within 7 working days.\nHappy Shopping."
                 #print(msg)
-                send_mail(
-                    "Order Confirmation from Medikart",
-                    msg,
-                    "asumishra25@gmail.com",
-                    [request.user.email,],
-                    fail_silently=False
-                )
+                # send_mail(
+                #     "Order Confirmation from Medikart",
+                #     msg,
+                #     "asumishra25@gmail.com",
+                #     [request.user.email,],
+                #     fail_silently=False
+                # )
                 del request.session["items"]
 
             return render(request,'products/placed.html')
         else:
-            return render(request,'products/invoice.html')
+            address = Address(
+                user = request.user,
+                addr_line1 = addr_line1,
+                addr_line2 = addr_line2,
+                pin = pin,
+                city = city,
+                state = state,
+                phone_number = phone_number,
+            )
+            address.save()
+            addr = "" +f"{name},\n{addr_line1},\n{addr_line2},\n{city},{pin}\n{state}\n{phone_number}"
+            request.session["address"] = addr
+
+            razorpay_client = razorpay.Client(auth=(settings.KEY,settings.SECRET))
+            
+            payment = razorpay_client.order.create({'amount':total_price*100, 'currency' : 'INR', 'payment_capture' : 1})
+            print(payment)
+            request.session["payment"] = payment
+
+
+            context={
+                "total_price": total_price,
+                "payment" : payment,
+            }
+            return render(request,'products/payment.html',context)
+
+
+
+
+def payment_success(request):
+    # razorpay_client = razorpay.Client(auth=(settings.razorpay_id,settings.razorpay_secret_id))
+    # prod = request.session.get("items")
+    # total_price = request.session.get("totalprice")
+    
+    # payment = razorpay_client.order.create('amount':total_price, 'currency' : 'INR', 'payment_capture' : 1)
+    # if prod:
+    #     order_details = ""
+    #     address = request.session.get("address")
+    #     for id,quantity in prod.items():
+    #         p = product.objects.get(id=id)
+    #         price = p.price * int(quantity)
+    #         price = round(price,2)
+    #         order_details += f"{p.name}  x  {quantity} ----- {quantity} x {p.price} ----- {price} \n"
+    #     order=Order(
+    #         user=request.user,
+    #         address = address,
+    #         order_details=order_details,
+    #         total_price=total_price,
+    #         payment_mode = "rzr_pay",
+    #     )
+    #     order.save()
+    #     msg = ""
+    #     msg = msg + f"Hi {request.user.name},\nYour order has been successfully placed.\nOrder details :\n{order_details}Total Order amount = {total_price}\n\nShipping Details :\n{address}\nThank You for Ordering from us, Your order will be delivered within 7 working days.\nHappy Shopping."
+    #     #print(msg)
+    #     # send_mail(
+    #     #     "Order Confirmation from Medikart",
+    #     #     msg,
+    #     #     "asumishra25@gmail.com",
+    #     #     [request.user.email,],
+    #     #     fail_silently=False
+    #     # )
+    #     del request.session["items"]
+
+    return redirect('placed')

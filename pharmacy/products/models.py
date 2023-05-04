@@ -22,7 +22,7 @@ class product(models.Model):
         return self.name
 class Order(models.Model):
     user = models.ForeignKey(MyUser,on_delete=models.DO_NOTHING)
-    address = models.TextField()
+    address = models.ForeignKey(Address,on_delete=models.DO_NOTHING)
     order_details=models.TextField()
     total_price=models.FloatField()
     payment_mode = models.CharField(max_length=50)
@@ -33,3 +33,13 @@ class Order(models.Model):
 
     def __str__(self):
         return self.user.name
+    
+
+class Payment(models.Model):
+    order_id=models.ForeignKey(Order,on_delete=models.DO_NOTHING)
+    amount = models.FloatField()
+    razorpay_order_id = models.CharField(max_length=100,blank=True)
+    razorpay_payment_id = models.CharField(max_length=100,blank=True)
+    razorpay_signature = models.CharField(max_length=100,blank=True)
+
+    paid = models.BooleanField(default=False)

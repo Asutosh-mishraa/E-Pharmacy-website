@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import product,category,Order
+from .models import product,category,Order,Payment
 # Register your models here.
 class CategoryAdmin(admin.ModelAdmin):
     list_display=(
@@ -20,6 +20,15 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields=('name',)
     list_filter=('is_paid','is_delivered','payment_mode',)
 
+
+class PaymentAdmin(admin.ModelAdmin):
+    list_display=('order_id','amount','razorpay_order_id','razorpay_payment_id','razorpay_signature','paid')
+    list_editable=('paid',)
+    search_fields=('order_id',)
+
+
 admin.site.register(category,CategoryAdmin)
 admin.site.register(product,ProductAdmin)
 admin.site.register(Order,OrderAdmin)
+admin.site.register(Payment,PaymentAdmin)
+
